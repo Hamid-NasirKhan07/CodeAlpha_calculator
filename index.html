@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <style>
+        div button:hover{background-color: #FAFAFA;}
+    </style>
+    <div style="height: auto;width: 20%;margin-top: 40px;float: left;"></div>
+    <div style="height: auto;width: 60%;margin-top: 40px;background-color: #FAFAFA;padding: 30px;float: left;">
+       <input type="text" id="display" style="height: 150px;width: 100%;background-color: white;border: none;font-size: 50px;">
+       <hr style="background-color: orange;height: 5px;">
+       <br>
+       <div style="width: 100%;height: 100px;">
+          <div style="width: 25%;height: 90px;float: left;">
+             <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('7')">7</button>
+          </div>
+          <div style="width: 25%;height: 90px;float: left;">
+            <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('8')">8</button>
+          </div>
+          <div style="width: 25%;height: 90px;float: left;">
+            <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('9')">9</button>
+          </div>
+          <div style="width: 25%;height: 90px;float: left;">
+            <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendOperator('/')">÷</button>
+          </div>
+          <div style="width: 25%;height: 90px;float: left;">
+            <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('4')">4</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+           <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('5')">5</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+           <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('6')">6</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+           <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendOperator('*')">x</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+            <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('1')">1</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+           <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('2')">2</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+           <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('3')">3</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+           <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendOperator('-')">-</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+            <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('.')">.</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+           <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendValue('0')">0</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+           <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;" onclick="appendOperator('+')">+</button>
+         </div>
+         <div style="width: 25%;height: 90px;float: left;">
+           <button style="width: 170px;height: 80px;margin: 10px;border-radius: 10px;background-color: white;border: none;font-size: 40px;background-color: #4C8CF5;color: white;" onclick="calculate()">=</button>
+         </div>
+       </div>
+    </div>
+    <div style="height: auto;width: 20%;margin-top: 40px;float: left;"></div>
+    <script>
+        let display = document.getElementById('display');
+        let currentValue = '';
+        let operator = '';
+        let previousValue = '';
+    
+        function appendValue(value) {
+            currentValue += value;
+            display.value = currentValue;
+        }
+    
+        function appendOperator(op) {
+            operator = op;
+            previousValue = currentValue;
+            currentValue = '';
+            display.value = previousValue + op;
+        }
+    
+        function calculate() {
+            let result = 0;
+            switch (operator) {
+                case '+':
+                    result = parseFloat(previousValue) + parseFloat(currentValue);
+                    break;
+                case '-':
+                    result = parseFloat(previousValue) - parseFloat(currentValue);
+                    break;
+                case '*':
+                    result = parseFloat(previousValue) * parseFloat(currentValue);
+                    break;
+                case '/':
+                    if (parseFloat(currentValue) !== 0) {
+                        result = parseFloat(previousValue) / parseFloat(currentValue);
+                    } else {
+                        display.value = 'Error: Division by zero!';
+                    }
+                    break;
+            }
+            display.value = result;
+            currentValue = result;
+            previousValue = '';
+            operator = '';
+        }
+    
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Backspace') {
+                currentValue = '';
+                previousValue = '';
+                operator = '';
+                display.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
